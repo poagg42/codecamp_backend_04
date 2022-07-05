@@ -1,0 +1,215 @@
+Node js
+
+우리는 백엔드 개발자이기 때문에 브라우저 없이 실행한다.
+
+Node js는 무엇이고 npm은 무엇인가?
+
+자바스크립트가 동작하는 곳은 브라우저
+
+브라우저에서는 HTML,CSS,Javascript만 작동이 가능했었다.
+
+Java로도, Python으로도 Javascript를 한 번씩은 다 해봤으니까
+
+브라우저에서만 실행하는 것이 아니라 내 컴퓨터에서 게임이나 매크로 등을 만들게 하자
+
+자바스크립트를 브라우저가 아닌 내 컴퓨터에서 실행하게 해주는 실행기 
+
+=> Node.js
+
+언어가 아니라 브라우저처럼 실행을 도와주는 프로그램
+
+라이브러리에서 다운 받아서 사용한다.
+
+Javascript -> Npmjs.com   자바스크립트의 라이브러리
+
+소스코드를 저장하는 사이트 Github
+
+Github에 폴더(레파지토리)를 저장하는 법 -> git push
+Github에 있는 폴더(레파지토리)를 다운 받는 법 -> git pull
+
+자바스크립트로 만든 기능들을 무료로 받아가세요 하는 사이트 Npmjs.com
+
+npm을 설치한 다음에 기능을 올렸다가 받았다가 한다.
+
+Npmjs.com에서 다운로드 받는 기능 -> npm install
+
+페이스북에서 다운 속도가 느려서 새로운 것을 만들었다
+
+yarn << npm을 가지고서 설치할 수 있다. npm install yarn 
+
+터미널은 무엇인가
+
+GUI 그래픽 유저 인터페이스  
+
+사용자가 사용하는 그래픽적인 도구
+
+터미널에서는 명령어로 처리가 가능하다
+
+CLI 커맨드 라인 인터페이스
+
+폴더를 디렉토리라고 한다
+
+작업하고 있는 디렉토리를 워킹 디렉토리라고 한다
+
+ls는 list
+remove r
+
+cd change directory
+
+
+상위폴더 .. /
+
+실무용으로 변경하기 위해 알아야할 함수의 필수개념들
+
+함수 선언하기 
+
+function add() {
+    const a = 1
+    const b = 2
+
+    const result = a + b
+}
+
+add()
+
+재사용성이 중요하다
+
+function add(a,b){
+    const result = a + b
+}
+
+add(1,2)
+
+함수 선언할 때 () 괄호 안에 있는 값 => 매개변수
+
+함수 실행할 때 () 괄호 안에 있는 값 => 인자 
+
+Scope 
+
+const banana = 10
+function add(a,b){
+
+    console.log(banana)  // 내부 스코프에서 먼저 찾고 밖의 스코프에서 찾는다
+    const result = a + b
+    }
+
+    스코프체인 내꺼에 없으면 밖에서 찾고 없으면 또 올라간다
+
+    밖에 있는 것을 안으로 가져와서 쓸 수 있다
+
+    반대로 안에 있는 것을 밖에서 쓸 수는 없다.
+
+    하나의 함수는 하나의 기능만 담당하자(가급적 실무에서)
+
+add
+
+minus 을 
+
+function add(aaa,bbb) {
+    const result = aaa + bbb
+    return result
+}
+
+function minus(fff,ggg){
+    const result = fff - ggg
+    return result
+}
+
+const aaa = add(1,2)
+const bbb = minus(12,10)
+
+const zzz = aaa * bbb
+
+return을 하면 기존의 add(1,2)값이 3으로 반환된다
+
+그리고 위의 함수는 실행되지 않는다
+
+return 밑에 어떤 코드를 작성한다고 하더라도 실행되지 않는다.
+
+return의 역할
+
+1. 값을 반환
+
+2. 함수를 종료
+
+getToken 함수 재사용성 높이기 실습
+
+null은 일부러 비워놓을 때
+
+undefined는 시스템 자체에서 비어있을 때
+
+앞으로 만들 것은 API => 함수 
+
+회원가입 홈페이지에서 
+
+프론트엔드 컴퓨터
+
+백엔드 컴퓨터
+인증번호요청 API, 인증완료 API , 가입하기 API
+
+데이터베이스 컴퓨터 DB
+
+회사 규모가 커지면 DBA가 있다
+
+백엔드 API를 꼭 거쳐야 하는가?
+
+백엔드가 하는 것은 데이터의 검증
+
+요청이 들어왔을 때
+
+토큰 생성
+
+1. 핸드폰번호 11자리가 맞는지?
+2. 토큰 6자리 만들기 
+3. 핸드폰에 토큰 보내주기 -> 다음주에 console로 가짜 메시지 보낸다
+
+if(myphone.length !== 11){
+    console.log("")
+    return
+}
+실무에서는 다른 것을 보고 에러메시지를 띄운 다음에
+
+return으로 함수를 종료시킨다
+
+early exit 패턴 >> 리팩토링 중 하나 
+
+퍼사드(Facade) 
+
+성이다
+
+사용자는 성 안을 들여다 볼 수는 없다
+
+기존의 함수를 세부 함수로 쪼갠다
+
+우리는 각각의 함수를 읽는 것이 아니라
+
+밖에서 성만 본다
+
+완벽하게 작동을 한다고 가정할 때
+
+제목만 봐도 대충 이 함수가 이 API가 어떤 역할인지 알 수 있다.
+
+function TokenAPI() {
+    getToken() // 토큰 발급
+
+    checkPhone() // 휴대폰 상태 점검
+
+    sendTokenToSMS() // 휴대폰에 토큰 발송
+}
+
+3개 모두 function getToken() {
+
+}
+처럼 세부적으로 볼 수 있다 
+
+그러나 어디서 오류가 났는지 금방 알 수 있게 하는 것이 Facade
+
+true " asldasldaf" 123 숫자 같은 0이 아닌 다른 수가 있으면 true
+
+false "" 0이 오면 false
+
+과제
+
+1일차 homework
+
+알고리즘 문제
