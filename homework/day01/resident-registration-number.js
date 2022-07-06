@@ -34,11 +34,13 @@ export function getTokens(countb){
            }   
     
            const result = String(Math.floor(Math.random() * 10 ** countb)).padStart(countb,"*");
-           console.log(result);
-           
+           console.log(result); 
 
 }
     
+function customRegistrationNumber(){
+    console.log(resitoken + "-" + resitoken2);
+    }
 
 // export function getToken(count){
 

@@ -1,0 +1,33 @@
+알고리즘 수업
+
+조건문(if)
+
+// const a = 0;
+// if(a > 1) {
+//     `a가 1보다 크다.`
+// } else if(a === 1){
+//     `a와 1이 같다.`
+// } else {
+//     `a가 1보다 작다.`
+// }
+
+const day = "월요일";
+
+switch(day) {
+  case "월요일":
+	"월요일입니다."
+	break;
+  case "화요일":
+  "화요일입니다."
+  break;
+  case "수요일":
+	"수요일입니다."
+  break;
+  default: 
+    day + "입니다." //default는 자동으로 break
+    //default가 가장 아래가 아니라 위나 중간에 위치하면
+    //default는 무시가 된다
+    //실무에서는 switch case는 많이 사용되지 않는다.
+}
+
+if문 여러개 알고리즘 문제 풀어봤다

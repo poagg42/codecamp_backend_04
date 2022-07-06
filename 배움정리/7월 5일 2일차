@@ -92,3 +92,94 @@ Obj.dog = "체리"
 객체 데이터 삭제
 
 delete Obj.school
+
+
+Node js 2일차
+
+1교시 깔끔한 문자열 Template-Literal
+
+2교시 신기한 변수 선언 Destructing
+
+3교시 날짜 다루기 Date
+
+홈페이지에 보이는 가운데는 html 코드
+
+놓친 부분 github에서 다운로드 
+
+템플릿 리터럴 
+
+const name = "철수"
+const age = 8
+const school = "다람쥐초등학교"
+
+console.log(name + "는" age + "이고" + school "에 다닙니다")
+
+console.log(`$(name)는 $(age)살이고 $(school)에 다닙니다`)
+
+백틱은 엔터도 가능
+
+console.log(`$(name)는
+ $(age)살이고
+  $(school)에 다닙니다`)
+
+
+매개변수와 인자를 사용한다
+
+function getWelcomeTemplate(name, age, school, createdAt){
+    const mytemplate = `
+        <html>
+            <body>
+                <h1>${name}님 가입을 환영합니다!!!</h1>
+                <hr />
+                <div>이름: ${name}</div>
+                <div>나이: ${age}살</div>
+                <div>학교: ${school}</div>
+                <div>가입일: ${createdAt}</div>
+            </body>
+        </html>
+    `
+    console.log(mytemplate)
+}
+
+const myname = "영희"
+const myage = 12
+const myschool = "토끼초등학교"
+const mycreatedAt ="2020-01-02"
+
+getWelcomeTemplate(myname, myage, myschool,mycreatedAt)
+
+안전한 코드로 바꾸려면 객체로 변환
+
+객체로 바꾸고 이름을 따라간다
+
+매개변수와 인자 
+
+2교시 비구조화할당(=구조분해할당)
+
+const { banana, money} = aaa // aaa라는 객체에서 banana랑 money에서
+
+꺼내서 값을 설정해라
+
+한번에 만들기 위해 구조분해할당이 생김
+
+const {age, name} = { name: 철수 , age : 12} 
+//객체는 순서는 중요하지 않지만 
+//이름이 중요하다
+
+const [friend1, friend2, qqq] = ["철수","영희","훈이"]
+
+// 배열은 키가 없다 그래서 변수 이름을 내 맘대로 만든다
+
+const [friend2, qqq] = ["철수", "영희", "훈이"]
+
+배열을 구조분해할당 할 때는 순서가 중요하다 이름은 중요하지 않다
+
+객체를 구조분해할당 할 때는 이름이 중요하다 순서는 중요하지 않다
+
+하드코딩 하지말고 인자를 매개변수에 넣는다
+
+매개변수와 함수 내부에 있는 return 값을 이용해서 해보자
+
+키와 밸류가 같으면 밸류를 생략할 수 있다
+
+shorthand property
