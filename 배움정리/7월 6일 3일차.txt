@@ -31,3 +31,308 @@ switch(day) {
 }
 
 if문 여러개 알고리즘 문제 풀어봤다
+
+
+정규 수업
+
+복사를 할 때
+
+원본은 변하지 않음
+
+값 복사 실습 
+
+객체와 배열은 복사가 잘 안 된다
+
+사본을 수정하면 원본도 수정이 된다
+
+1,2,3같은 숫자 또는 true/false 같은 불린은 복사가 잘 된다.
+
+
+객체와 배열에는 값이 저장된 것이 아니라
+
+주솟값이 들어간다
+
+이유는 String, Number, Boolean 등은 값이 하나씩 들어가지만
+
+객체와 배열은 값이 여러 개여서 주솟값만 가져와서 사용한다
+
+profile1 -> profile2
+
+1번지    ->   1번지     주소가 복사가 됐다
+
+우리가 원하는 것은 2번지가 들어가는 것
+
+어떻게 복사해야 될까?
+
+객체는 복사가 안 되니 개별적으로 복사가
+
+
+...profile  << 스프레드 연산자
+
+let profile2 = {...
+
+낱개로 된 언어는 4번 반복은 어려우니까 스프레드 연산자 사용}
+
+
+let profile = {
+    name: "철수",
+    age: 12,
+    school: "다람쥐초등학교"
+}
+Camp_노원두 — 오늘 오후 3:30
+let profile2 = {
+    name: profile.name,
+    age: profile.age,
+    school: profile.school
+}
+let profile3 = { ...profile }
+let profile = {
+    name: "철수",
+    age: 12,
+    school: "다람쥐초등학교",
+    hobby: {
+        hobby1: "수영",
+        hobby2: "자전거"
+    }
+}
+Camp_노원두 — 오늘 오후 3:41
+let profile5 = {
+    name: profile.name,
+    age: profile.age,
+    school: profile.school,
+    hobby: {
+        hobby1: profile.hobby.hobby1,
+        hobby2: profile.hobby.hobby2
+    }
+}
+
+let profile5 = {
+    name: profile.name,
+    age: profile.age,
+    school: profile.school,
+    hobby: { ...profile.hobby }
+}
+
+let profile5 = {
+    ...profile,
+    hobby: { ...profile.hobby }
+}
+
+스프레드 연산자 하나만 가지고는 hobby 까지는 복사가 안 된다
+
+한 번 더 거쳐야 한다
+
+let profile5 = { ...profile} 얕은 복사(Shallow Copy)
+
+객체를 아무 상관 없는 문자열로 바꾼다음에
+
+전체 문자열을 다시 새로운 객체로 바꾼다 
+
+이것을 깊은 복사
+
+ ` { name: "철수",
+    age: 12,
+    school: "다람쥐초등학교",
+    hobby: {
+        hobby1: "수영",
+        hobby2: "자전거"}
+        }`
+
+JSON.stringify로 문자열로 바꾸고
+
+JSON.parse로 새로운 객체로 바꾼다
+
+이것이 깊은 복사 (DeepCopy)
+
+JSON은 JavaScript Object Notation
+
+자바스크립트의 객체 표기법
+
+객체가 아니라 객체처럼 생긴 문자열
+
+깊은 복사는 느린 편이다 
+
+그래서 필요한 것이 라이브러리
+
+lodash 는 구글에서 유명한 라이브러리
+
+npm에서도 lodash 다운로드가 가능하다
+
+const profile이 
+
+값이 바뀌는 이유는
+
+profile 안에는 주소가 들어가 있다
+
+const profile ={
+
+  name: "철수",
+  age: 12,
+  school: "다람쥐초등학교"
+}
+
+profile안에는 1번지라는 주소가 들어있는데 
+
+profile = 3 << 안 된다
+profile = "사과" << 안 된다
+profile = {
+
+}  << 또 다른 객체 안된다
+
+하지만 profile.age << 이런거는 변경 가능 
+profile이 참조하고 있는 주소의~~ age를 바꾸는 거여서 가능하다
+
+Object.freeze(profile) 
+Object.freeze로 잠구게 되면 
+
+바뀌는 것처럼 보여도 바뀌지 않는다
+
+
+객체도 똑같다 
+
+const aaa = ["철수, "영희", "훈이"]
+const bbb = ["맹구", "짱구"]
+
+// a,b 합치기
+const ccc = [...aaa, ...bbb]
+
+
+REST 파라미터 
+
+const child = {
+  name: "철수",
+  age: 8,
+  school: "다람쥐초등학교",
+  money: 2000,
+  hobby: "수영"
+}
+money와 hobby만 삭제하고 싶을 때
+
+money와 hobby를 구조분해할당으로 생성하고 
+
+나머지를 따로 담는다
+
+이유는 다른 사람과 같이 사용할 때 원본을 훼손하지 않기 위해서
+
+//구조분해할당
+const {money, hobby, ...rest } = child
+                    rest 대신 aaa라고해도 된다
+rest
+-> {name: "철수", age: 8, school:"다람쥐초등학교" }
+
+통신에 대하여
+
+우리가 프론트엔드라고 가정하고
+
+파일은 전송할 때 길 => FTP
+
+간단한 메일 => SMTP
+
+텍스트 / 하이퍼텍스트 => HTTP
+
+프론트엔드 -> 요청
+
+백엔드 -> 응답 
+
+
+프론트엔드에서 회원가입 폼이 예시라면
+
+작성자: 김영후
+비밀번호: 1234
+제목: 게시물
+내용 : 좋아요
+
+-> (요청) 이 게시물 등록해줘  (request) ->req
+
+백엔드는 함수 매개변수로 받는다
+
+이것을 데이터베이스에 저장한다
+
+저장이 잘 되었다는 응답을 DB한테서 받으면 
+
+백엔드는 (응답) 완료됐어~ (response) -> res
+
+응답 상태코드 ex)404 502
+
+게시물 저장 API
+
+프로필 저장 API (함수)   버튼 하나당 그것을 처리할 함수를 만든다
+
+API는 REST API와 GRAPHQL API가 있다
+
+원래는 REST만 있었는데 GRAPHQL(페이스북에서 만듬)
+
+rest - API는
+
+주소처럼 생긴 이름
+네이버에서 1번 게시글 조회 
+http://naver.com/board/1 
+
+요청을 하게 되면 (1번 게시글 가져다줘)
+제목만 있으면 되는데 
+굳이 필요없는 다른 내용들까지 
+다 가져온다
+
+비효율적, 비용 증가
+
+무겁다
+
+graphql- API
+
+는 일반 함수와 같은 이름
+네이버에서 1번 게시글 조회
+board(1)
+
+애초에 요청을 할 때부터 
+1번 게시글 작성자, 제목만 가져다 줘
+
+작은 데이터만 효율적으로 이용하기 때문에 속도가 빠르다.
+
+가볍다
+
+JSON(JavaScript Object Notation) 자바스크립트 객체 표기법
+
+받아오는 데이터는 key value를 가지는 객체다 
+
+데이터에 해당하는 객체를 
+
+(응답) 헤더
+
+보내는이 보내는 형태:JSON 이 적혀있다
+
+(요청) 헤더 보내는이: 사이트주소 보내는 형태: JSON
+
+
+CRUD(Create,Read,Update,Delete)
+  
+API를 만들 때 이러한 기능들이 필요하다
+            axios(rest-API)     apollo-client(graphql-API)
+생성 CREATE   POST                MUTATION(표(DB)를 변경시킨다)
+수정 UPDATE   PUT                 MUTATION
+삭제 DELETE   DELETE              MUTATION
+조회 READ     GET                 QUERY(표(DB)를 변경시키지 않는다)
+
+rest-API는
+Restful 하게 작성해야한다(규칙에 맞게끔)
+
+
+아직 많은 회사가 REST API 사용
+
+OPEN -API(public API)에서 일반적으로 REST를 제공
+
+
+rest-API
+
+API 연습 - 포스트맨(Postman)
+API 설명서 - 스웨거(Swagger)
+
+graphql-API
+
+플레이그라운드(Playground)
+
+<< 연습용 >>
+swagger주소: http://example.codebootcamp.co.kr/api-docs
+playground주소: http://example.codebootcamp.co.kr/graphql
+
+<< 숙제용(실무용) >>
+playground주소: http://backendclass.codebootcamp.co.kr/graphql

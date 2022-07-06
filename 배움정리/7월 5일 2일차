@@ -80,6 +80,13 @@ bracket notation은
 let key = "name"
 Obj[key] 괄호 안에 큰따옴표가 없으면 key라는 변수를 찾는다
 
+bracket notation을 반드시 사용해야 할 때
+
+'4-bc' '3 bc' 같이 앞에 숫자가 먼저 왔거나 
+
+중간에 띄어쓰기나 특수문자에 키 값이 끼어 있을 때
+
+
 
 객체의 데이터 추가/변경
 
