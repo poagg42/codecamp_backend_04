@@ -1,0 +1,195 @@
+알고리즘
+
+가장 큰 수 찾기
+
+biggest 로 해도 되고
+
+Math.max()로 해도 된다
+
+... 스프레드 
+배열 안의 내용을 복사해서 꺼낸다
+
+점수에 따른 등급
+
+엣지 케이스
+
+100점 초과나 0점 미만은 "잘못된 점수입니다" 같은  것을 엣지 케이스라고 한다
+
+예외인 부분(엣지 케이스)를 먼저 설정해주는 것이 좋다 if 문 같은 것
+
+if문으로 엣지 케이스를 미리 설정해줬다면 
+
+return으로 끊고 가도 좋다
+
+엣지 케이스를 먼저 설정하는 이유는 효율성 때문이다
+
+그리고 불필요한 반복을 하지 않도록 return으로 끊고 간다
+
+isNaN은 'abc' 처럼 문자열이 들어가도 true가 나온다
+isNaN은 괄호 안의 것을 내부적으로 Number('abc')를 수행한다
+
+Number.isNaN은 정말로 NaN값이 나올 때만 true가 된다
+Number.isNaN('asd' * 2)은 괄호 안이 NaN이 되어서 true
+
+if(typeof(arr[i])) === "number"
+
+식으로 한다
+
+정규시간
+
+1. 왜 API를 브라우저에서 요청하면 실패할까? >> CORS
+
+2. GRAPHQL API도 별거 없네?!  >>> APOLLO
+
+회원가입 폼을 만든다
+
+    axios는 윈도우라는 곳에 등록이 된다
+
+    script src를 이용해서 다운받는다
+
+    CORS 블락된 이유
+
+    백엔드 폴더에 CORS 설치한다
+
+    CORS는 무엇일까? (Cross Origin Resource Sharing)
+
+    원본이 바뀐 것에 대해서 데이터를 주고 받는다
+
+    SOP란(Same Origin Policy) 
+
+    원본 끼리만 데이터를 주고 받을 수 있다
+
+    원본이란? => 주소
+
+CORS
+http://naver.com -> axoios.post(http://google.com/post) 등에서
+
+요청할 수 있다
+
+그냥 CORS()는 모든 주소에 대해 허락
+
+괄호안에 주소이름 적으면 그 곳만 허락
+
+ex) app.use(cors({
+  origin: "http://naver.com"
+}))
+
+네트워크 들어가서 preflight는 실제 요청을 하기 전에
+
+먼저 물어보는 것
+
+미리보기(Payload) Request
+
+응답(Preview), 시작점()
+
+apollo-server 다운받는다
+
+객체에서 키와 밸류가 같으면 밸류를 생략한다
+
+shothand property
+
+화살표 함수 복습
+
+function aaa(){
+  return 123
+}
+
+> aaa()
+
+< 123
+
+const bbb = () => {
+    return 456
+}
+
+> bbb()
+< 456
+
+const ccc = () => {
+  456
+}      //중괄호에 아무것도 없을 경우 소괄호로 생략 가능하고
+
+// 소괄호도 웬만하면 생략 가능하다
+
+그래서 
+
+const ccc = () => 456
+
+rest-api는 req를 사용하고
+
+graphql은 return을 사용한다
+
+const resolvers = {
+  Query: {
+    aaa: () => 'Hello World! 반가워요!!555',
+  },
+};
+
+rest-api는 app을 만들고 graphql은 server를 만든다
+
+graphql이 다른 점 
+
+타입을 만들고 등록해야한다.
+
+nodemon을 깔면 package.json에
+
+ "scripts": {
+    "dev": "nodemon index.js"
+  },
+  을 추가해준다
+
+  graphql로 만들어봤다
+
+  graphql은 query와 mutation으로 나뉘어져 있다
+
+  rest-api와 graphql 비교해보자
+
+  api-api 주고받을때는 parent로 간다
+  브라우저 arg로 간다
+
+  fetchBoards: [MyReturn] 객체 한 개를 의미
+  fetchBoards: [MyReturn] # => 배열 안에 객체 여러개를 의미
+
+  input이 들어가는 파일은 반드시 type 대신 input이 들어가야 한다
+
+ graphql은 type이 귀찮지만
+
+  type 때문에 doc를 만들지 않아도 된다
+
+  rest-api는 type이 없어서
+
+  이런 데이터를 만들면 int가 나갈꺼야 이런식으로 적어야 한다
+
+  export default는 아무이름으로도 import 받을 수 있다
+
+  모든 애들을 하나의 변수로 받아오는 것은
+
+  import * as qqq << 이름
+
+  낱개로 export 할 때는 {} 를 해서 한다.
+
+  이번시간에는 
+
+  1. 브라우저에서 요청할 때
+
+  cors 문제 해결하기
+
+  왜 일어났을까? 원리가 무엇인지
+
+  preflight request를 두 번 한다
+
+  preflight 한 번, 실제 request 한 번
+
+  preflight는 내가 보낼 수 있니? 어떤 메서드를 보낼까
+
+  cors는 모두 보낼 수도 있고
+
+  origin으로 몇 개 사이트만 지정할 수도 있다
+
+  2. apollo를 이용해서 graphql-api해보는 것
+
+  가장 다른 부분은 type이 있다는 것
+
+  rest -api는 swagger를 했었는데
+
+  graphql은 type을 자동으로 만들어줘서 doc를 만들 필요가 없다.
