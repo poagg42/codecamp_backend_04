@@ -193,3 +193,5 @@ nodemon을 깔면 package.json에
   rest -api는 swagger를 했었는데
 
   graphql은 type을 자동으로 만들어줘서 doc를 만들 필요가 없다.
+
+  
