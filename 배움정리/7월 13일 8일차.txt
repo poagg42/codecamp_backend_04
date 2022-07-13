@@ -1,0 +1,314 @@
+알고리즘
+
+모든 요소를 탐색할 때 For
+
+reduce는 콜백함수를 첫 번째 인자로 받는다
+
+
+
+  arr.reduce((cur, ele) => {
+    console.log(cur, ele)
+    return Number(cur) + Number(ele) } , 0)
+
+ return Number(cur) + Number(ele)
+
+    ['1','2','3'] //초기값이 없는 경우
+    ['0','1','2','3'] //초기값이 있는 경우
+
+    누산한다
+
+    arr.sort()는 앞 자리 수만 보고 정렬한다.
+
+그래서 sort() 메서드 안에 콜백함수를 넣어준다
+    arr.sort((a, b) => {
+        return a - b
+    }) // 숫자를 오름차순으로 정렬할 때
+
+문자열은 유니코드를 
+    유니코드 전세계에서 사용되는 문자 순서 정렬
+
+    Array.from({length: arr.length}, () => 1);
+
+정규수업
+
+1. 두 개의 도커를 하나로 묶어보자! >>> docker-compose
+
+2. API와 DB를 연결하자! >>> Mongoose / MongoDB
+
+3. Nodemon 리프레시가 왜 안되지? Nodemon / Volumes
+
+ODM이 몽구스
+
+mongodb compass는 database가 아니라 쉽게 볼 수 있게 한다
+
+
+`sudo systemctl start mongod` 명령어로 몽고DB를 실행시켜 줍니다.
+
+`sudo systemctl status mongod` 명령어를 입력하여 **active** 상태가 되어있다면 완료입니다.
+
+mongodb 가 꺼지거나 노트북 전원이 나가면 
+
+그림에서 공부했듯이 DB가 24시간 켜져 있지 못한 상태다.
+
+터미널에서 mongo 친다.
+
+shell 명령어
+데이터베이스들을 보여줘 > show databases;
+
+> use local
+
+앞으로 입력하는 모든 데이터들은 local 안에서 입력하는 명령어들이다.
+
+local 안에 어떤 컬렉션들이 있는지   
+
+>show collections;
+
+안에 startup_log가 있다
+
+db.startup_log.find();
+
+우리는 연습용 데이터를 만들 것이다.
+
+mongodb compass는 db가 아니라 관리도구 
+
+mongodb가 종료되면 mongodb compass는 의미가 없다 -> mongodb에 접속해서 예쁘게 보여주는 관리도구
+
+CLI는 너무 복잡해서 mongodb compass가 필요함
+
+Create Detabase로 myproject04 만든다.
+
+버튼을 누르면 mongodb에서 만들고 mongodb compass가 다시 화면으로 꺼내온다
+
+product로 들어가서
+
+add data -> insert document
+
+아이디는 자동 생성
+
+키 밸류 형태로 a4용지 한 장 형태로 문서를 만들었다.
+
+> use myproject04;
+
+앞으로 입력하는 명령어들은 04에서 적용이 된다.
+
+어떤 컬렉션들(봉투들)이 있는지 알아보자
+
+> show collections
+product
+>db.product.find();
+
+나중에는 직접적인 명령어를 많이 쓰지 않는다 -> ODM을 사용한다
+
+명령어는 mongodb 사이트가 나온다. -> mongoDB documentation
+
+이제 내 컴퓨터에는 mongodb 의미 없다
+
+도커로 해야한다.
+
+도커로 mongodb설치하는 방법
+
+backend에서 Dockerfile을 또 만든다.
+
+FROM mongo:5
+
+docker-compose build(이미지만듬)하면 편하다 
+
+docker-compose up (이미지 실행)
+
+docker-compose stop (이미지 종료)
+
+docker-compose down (이미지 삭제 묶음으로 한 방에 다같이)
+
+명령어 한 방에 express와 몽고에서 둘 다 가능
+
+docker-compose.yaml는 설정파일인데 중괄호가 없다 //JSON은 key value 값으로
+
+대신에 부모자식을 띄어쓰기로 한다. 띄어쓰기가 중요하다.
+
+docker-compose.yaml 설정해보자
+
+services -> 컴퓨터 -> 백엔드 한 대 db 한 대 만든다 
+
+컴퓨터 한 대 한 대를 서비스라고 한다.
+
+sudo docker-compose build
+
+sudo docker-compose up
+
+항상 permission이 나오면 sudo 붙이자
+
+이제 도커에서 몽고db를 켜서 몽고dbcompass로 확인해본다
+
+안 된다 안 되는 이유 포트포워딩 -> 캡처파일 확인
+
+그래서 docker-compose.yaml 에서 포트를 바꿔준다.
+
+sudo docker-compose stop하고 다시 켜준다.
+
+sudo docker-compose up
+
+이제 vscode에서 api로 연결을해서 데이터를 넣는 작업을 한다.
+
+포트포워딩하고 서버를 키게 되어있다면
+0.0.0.0: 3000 -> 3000/tcp
+
+0.0.0.0:27017 -> 27017/tcp 등으로 0.0.0.0은 모든 파일을 넣을 수 있다를 말하고
+
+3000 과 27017은 내가 아까 docker-compose.yaml에서 설정했던
+
+포트 번호를 뜻한다.
+
+이제 npm에 있는 mongoose를 설치한다(ODM) object document mapping
+
+product.find() ->
+
+mongoose를 이용해서 mongodb를 연결한다.
+
+mongoose.connect("mongodb://localhost:27017/mydocker04")
+
+이렇게 했는데 안 되는 이유?
+
+내 컴퓨터에서 도커 두 개가 실행 중 16:54 캡처 본
+
+도커 두 개는 묶여있다.
+
+하나는 express 하나는 mongodb
+
+express에서 mongodb로 접속하려고 하는데 
+
+express가 있는 컴퓨터(도커)에서 localhost를 하면 도커 안에 있는 localhost로 간다
+
+그래서 안 된다.
+
+쉬운 방법은 docker-compose로 두 컴퓨터를 묶는다.
+
+컴퓨터 이름으로 연결이 된다.
+
+my-backend  ,  my-database
+
+네임리졸루션 my-database:27017 을 한다. 이름만 맞으면 찾아 들어간다 포트포워딩이 필요가 없다.
+
+다시 정리하자면
+
+localhost가 접속이 안 된다. 이유는 localhost가 도커 자신을 가리키는 것이기 때문에
+
+결국 
+mongoose.connect("mongodb://my-database:27017/mydocker04")로 하고
+
+sudo docker compose build
+sudo docker compose up
+
+캡처한 것 처럼
+
+pot 번호는 필요가 없다 postman 실습할 때 필요한 것
+
+데이터베이스는 자동으로 만들어지지만
+
+컬렉션은 만들어야 된다
+
+backend 폴더에 models 폴더, board.model.js를 만들고
+
+import mongoose from "mongoose";를 적어준다
+
+구조(스키마)를 만든다. 
+
+스키마는 구조를 셋팅하는 것
+
+board.model.js에서 writer, title, contents
+
+등등 셋팅해놓고 index.js에서 내용을 작성
+
+board.model.js 에 있는 컬렉션을 export 한다.
+
+index.js 에
+
+ // 1. 데이터를 등록하는 로직 => DB에 접속해서 데이터 저장하기
+  const board = new Board({
+    writer: req.body.writer,
+    title: req.body.title,
+    contents: req.body.contents
+  })
+  board.save()
+
+  //1. 데이터를 조회하는 로직 => DB에 접속해서 데이터 꺼내오기
+
+  const result = await Board.find()
+
+비동기적이라 find하라고 해놓고 되지도 않았는데 밑에 응답을 주라고 하기 때문에
+
+await를 붙이고 위의 함수에 async를 붙인다.
+
+포스트맨으로 api 두 개 실습
+
+등록 먼저 하고 조회 해 본다
+
+
+http://localhost:3000/boards  post 방식으로 해보고 
+
+body에서 작성하는 것은
+
+실제 유저가 브라우저에서 작성하는 느낌으로
+
+하고
+
+get으로도 해본다 (RESTful하게 적어서 그냥 형식만 바꾸면 된다)
+
+실수로 오타내고 저장되면
+
+자동으로 refresh가 안 된다.
+
+nodemon이 있어도 안 되는 이유?
+
+도커 밖의 내 컴퓨터에는 되는데 
+
+도커 안에서는 적용이 안 된다
+
+내가 도커 밖의 파일을 수정했다고 해서 도커 안의 파일이 되는 것이 아니다.
+
+docker-compose.yaml에 들어가서 수정
+
+밖에 있는 파일을 .
+
+: 땡땡을 기준으로 왼쪽이 내 컴퓨터 오른쪽이 도커
+
+내 컴퓨터에 있는 
+
+email.js가 바뀌면 /myfolder/email.js 를 수정해줘
+
+volumes는 두 개의 저장소를 공유한다. 동기화 -> 안이 바뀌어도 밖이 바뀌고 밖이 바뀌어도 안이 바뀐다.
+
+    volumes:
+      - ./index.js:/myfolder/index.js
+      - ./email.js:/myfolder/email.js
+
+이제 밖의 index.js를 교체하면 -> docker 안에다가 집어넣고 ->
+
+도커 안의 파일이 변경된 것을 -> nodemon이 감지하고 refresh를 해준다 3단계
+
+기존에는 소스코드 변경하면 -> nodemon이 감지하고 실행해줬다 2단계
+
+package.json에서 당연히 nodemon이 있어야한다. 도커에서 volumes도 있어야 한다.
+
+나중에 refresh 안 될 때 어디서 잘못됐는지 찾는다
+
+과정을 기억한다.
+
+오늘 배운 중요한 점
+
+
+도커를 통해 데이터베이스에 저장
+
+내 컴퓨터에서 포트포워딩이 필요하다
+
+도커 내에서의 localhost와 내 컴퓨터에서 localhost는 다르다
+
+도커와 도커간의 연결은 docker compose로 묶으면 포트포워딩 필요없이 네임리졸루션
+
+nodemon과 volumes의 관계
+
+도커 안에서 실행을 할 때는 밖에서 변경해봤자 nodemon이 실행되지 않는다
+
+그래서 volumes로 안과 밖을 동기화한다(싱크를 맞춘다.)
+
+이후에 nodemon이 refresh한다.
+

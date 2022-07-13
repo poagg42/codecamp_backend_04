@@ -184,9 +184,9 @@ sudo docker images로 이미지 확인하고
 
 이후 postman으로 http://localhost:500/boards 하면 내용이 나온다
 
-sudo docker ps -q 하면 컨테이너 아이디만 쫙 나온다
+sudo docker ps -a 하면 컨테이너 아이디만 쫙 나온다
 
-sudo docker stop `docker ps -q` 하면 전체가 종료
+sudo docker stop `docker ps -a` 하면 전체가 종료
 
 백틱을 하면 백틱 안 내용 먼저 실행
 

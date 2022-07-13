@@ -7,6 +7,8 @@ import { checkValidationEmail, getWelcomeTemplate, sendTemplateToEmail } from '.
 import { checkValidationPhone, getToken, sendTokenToSMS} from './phone.js'
 
 
+
+
 const app = express()
 app.use(cors())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
