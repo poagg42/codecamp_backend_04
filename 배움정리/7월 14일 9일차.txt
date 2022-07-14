@@ -1,0 +1,212 @@
+정규시간 
+
+1. 다른 사이트 정보를 한 번 가져오자 >> Scraping / cheerio
+2. 다른 사이트 정보를 꾸준히 가져오자 >> Crawling / Puppeteer
+3. DB와 연동하기
+
+눈으로 보이는 것이 아니라 이것을 어떻게 가져올 수 있을 것인가
+
+개발자 도구를 열게 되면 html, css 코드가 나와있다.
+
+문자열을 가지고 온다.
+
+1. 어떻게 가지고 올 것인가?
+
+일일히 드래그로 가져올 수도 없다.
+
+개발자 도구의 element에는 
+사이트의 html, css 파일이 보인다.
+
+우리(브라우저)는 네이버의 프론트엔드 서버에서 다운받는다
+
+프론트엔드도 api가 있다.
+
+/cafe /blog 등등 태그를 쓰면 html을 다운받는다.
+
+html코드도 hypertext 파일이기 때문에 문자열로 다운받을 수 있다.
+
+Postman에서 네이버 홈페이지 주소를 치거나 axios로 네이버 홈페이지 주소를 치면
+
+받아올 수 있다.
+
+sudo curl https://www.naver.com/으로도 받아올 수 있다.
+
+04-01 
+브라우저도 get요청을 하는 도구
+
+브라우저는 html을 해석할 수 있는 능력을 가졌다.
+
+다른애들(postman, curl)은 html을 해석할 수 없다.
+
+그냥 문자열로 받아와서 보여준다.
+
+그러나 html은 받아와서 그려줄 수 있는 것은 브라우저
+
+
+위의 한 것들은 axios로도 가능
+
+Scraping << 긁어온다
+
+axios를 활용해서 할 수 있다.
+
+postman, curl을 활용해서 할 수 있다.
+
+결과를 가지고 유용하게 바꾸는 데 도움을 주는 것 cheerio
+
+크롤링-> 다른 사이트의 유용한 정보를 가져온다
+
+스크래핑은 왜 하는 걸까? 매일 달라지는데
+
+디스코드에서 스크래핑한 경우
+
+네이버 닷컴의 메인 
+
+OG라는 약자가 있다(Open Graph)
+
+우리 사이트 홍보할 때 요걸로 횽보해주세요
+
+메타태그에서
+
+우리 사이트 홍보할 때 요걸로 횽보해주세요
+
+og 페이스북이 시작함, twitter
+
+og twitter는 관례가 되었다.
+
+yarn add cheerio
+
+
+라이브러리는 대부분 npmjs에서 볼 수 있다(cheerio도)
+
+cheerio -> html코드를 로드한다
+
+html 코드를 로드해서 변수 qqq에 담는다.
+const qqq = cheerio.load(result.data)
+
+qqq라는 데이터에서 메타 태그만 골라줘
+ qqq('meta').each
+
+ cheerio안에 내장된 for문 
+
+ 메타 태그의 갯수만큼 시작된다 map할 때랑 비슷
+
+ .each << 여기서의 for문 
+ 
+ (_,el) << index, element
+
+    attr()은 <meta property > <<< meta 태그의 프로퍼티  
+
+    메타태그가 속성을 가지고 있다면 
+
+    if($(el).attr("property")?.include("og:")
+
+    ? optional chaining
+
+    있으면 .include하고 없으면 하지 않는다
+
+npmjs에서 puppeteer를 다운받아서 진행할 것이다.
+
+yarn add puppeteer 설치 오래걸리는 이유
+
+chromium browser
+
+크롬 브라우저의 기능들을 가지고 있는 것 -> 그것을 확장한 것이 chrome
+
+$eval html에 있는 것들을 뽑아온다.
+
+크롤링을 하더라도 상대방에게 해를 끼치지 않는 정도로 사용한다
+
+/robots.txt
+
+프로그램이 접속할 때 누구는 되는지 확인하는 것
+
+크롤링이 allow되면 괜찮다 -> 그래도 무차별적으로 해서 서버에 부하를 주거나, 카피본을 만든다거나
+
+disallow : 사용하면 안 된다.
+
+요청은 한 번만
+
+htmls://www.~~~ 에서 받아온다
+
+골라낸 것이 3번 골라낸 것 일 뿐
+
+오른쪽 클릭 -> copy -> copy selector
+
+양쪽 공백 사라지게 하는 것 trim
+
+화살표 눌러서 홈페이지 내 클릭하면 위치가 나온다
+
+안 되는 이유
+
+두 개가 하나의 사이트가 아니다
+
+자체 페이지도 있지만 iframe도 있다
+
+지금 찾으면 껍데기에서 찾는다
+
+우리가 selector로 가져온 것은 그 안에 있는 body
+
+iframe를 우선 찾는다.
+
+페이지에서 frame들은 먼저 찾는다
+
+page.frames().find((el) => el.url().includes(""))
+
+framepage에서 eval 해야된다
+
+콘솔 내용을 mongodb에 저장해본다
+
+백엔드는 설계도 - 데이터 파이프라인
+
+을 잘 알아야 한다
+
+이것이 백엔드의 포트폴리오가 된다.
+
+순서
+
+backend 서버를 먼저 킨다
+
+도커 컴포즈 빌드 , 업
+
+그다음 크롤러 가서 node index.js
+
+그다음 포스트맨 가서 get 방식으로 http:localhost/stocks로 send
+
+데이터 파이프라인 
+
+Backend(express) ---- DB(Mongodb)
+
+docker-compose로 연결해서 네임리졸루션 가능 << 포트포워딩 없이
+
+도커(my-backend) , 도커(my-database)
+
+postman에서 backend로 접속 -> 3000번 포트포워딩
+crawler에서 localhost 27017로 db 접속
+compass에서 27017로 db접속
+
+
+그냥 $는 태그를 가져온다 하나만 가져와    evaluation의 약자 -> 가져와서 평가해서 뽑는다
+
+$eval은 가져온 태그를 사용할 공간이 생긴다
+
+그래서 (el) => el.textContent를 할 수 있다
+
+$$ 달라 두개는 태그가 여러 개가 있다면 모든 태그를 다 가져와
+
+오늘 과제 
+
+1.starbucks 크롤링해서 넣은 데이터 조회하는 API 만들기
+
+
+오늘 했던 것 정리
+
+스크래핑이랑 크롤링 해봤다
+
+스크래핑 한 번 긁어온다
+
+크롤링은 많이 쓰인다.
+
+서비스의 다양성을 높여준다
+
+악의적인 행동인가? 해당 회사에 악영향을 줄 것인가?
+

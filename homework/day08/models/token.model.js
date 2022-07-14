@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-const BoardSchema = new mongoose.Schema({
+const boardSchema = new mongoose.Schema({
     token: String,
     phone: String,
     isAuth: Boolean
 })
-
-export const Board = mongoose.model("Board", BoardSchema)
+//schema를 가지고 mongoose의 Board 컬렉션을 만든다
+export const Board = mongoose.model("Board", boardSchema)
