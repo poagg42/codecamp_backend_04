@@ -1,0 +1,212 @@
+정규수업
+
+rest-api 만들 때 스웨거가 자동으로 생기듯이
+
+nest.js는 type도 자동화
+
+
+nest.js로 API 만들기가 오늘 큰 주제
+
+graphql은 swagger 필요없대 -> code first / schema first
+
+이번엔 표에 저장하자 -> MySQL / TypeORM
+
+nest.js로 게시물/등록 API를 만들어보자!
+
+12-02-nestjs 파일이 기본이고 여기에 추가한다.
+
+
+"start:dev": "nest start --watch",  << 이게 yarn dev 역할
+
+yarn start dev
+
+app.service , app.controller
+
+모듈이 이것을 합치는 역할
+
+합친 모듈이 메인으로 간다
+
+이제 rest-api말고 graphql-api로 넘어가자
+
+nesjs는 docs에다가 sample code 까지 제공한다
+
+이것으로 보일러 플레이트를 만들고
+
+내가 원하는 기능을 하나씩 추가해 나간다.
+
+nestjs.com에서 영어로 봐야하는 이유
+
+한글은 번역을 해야하기 때문에 업데이트가 느릴 수 있다.
+
+docs를 읽는 것이 중요하다.
+
+실무에서는 개발을 하거나 docs를 읽거나
+
+docs를 쉽게 보는 방법 
+
+quick start or introduction 이런 것을 먼저 보자
+
+yarn add @nestjs/graphql @nestjs/apollo graphql apollo-server-express 로
+
+graphql, apollo, apollo-server-express 등등 깔자
+
+코드 퍼스트가 무엇인가?
+
+code first vs shcema fisrt
+
+타입 스키마를 작성하는 것이 타입 스키마를
+
+기존에 여태까지 한 방식
+
+sehema- Filst
+
+typeDef를 직접 한나하나 작성하는 방식
+
+플례이그라운드  직접 작성할 시간을 굉장히 단축시킨다
+
+타입을 자동으로 생성해 준다.\
+
+code -= firth
+
+code-First란 typeDepth를 자동으로 만들어주는 방식
+
+yarn add 
+
+
+03-01-13-10.ts
+
+import { graphql }.return> : numbers?
+import( (g\)
+
+{:}
+}
+":}
+:
+:{! ]}
+
+타입이 적인 값이 있어야 되기는 하는데
+
+자동으로 만들어진 데이터가 어디에다가 저장되어있는지 알게 된다
+
+기존의 apollo-server는 schema-first
+
+typeDefs를 직접 하나하나 작성하는 방식
+
+컨트롤러 ,서비스에서
+
+const boardsService = new BoardsService()로 해서 했는데 이것은 강한 결합을 가지고 있어서
+
+의존성 주입(DI)을 통해 
+
+Nestjs가 자동으로 설정을해준다(IoC)
+
+내가 New해야 할 것을 nestjs가 대신 해준다.
+
+1교시 getHello라는 api를 만들었다
+
+nestjs graphql 사용해서
+
+몽고DB는 가장 처음 쉘로 접속했었다
+
+복잡하고 어렵다 보니까 그림으로 표현해주는 몽고DB Compass를 사용했다
+
+몽고DB Compass는 DB가 아니라 DB에 접속해서 내용을 보여주는 도구일 뿐이었다
+
+MySQL도 마찬가지로 쉘로 접속할 수 있다.
+
+그것을 쉽게 보여주는 도구가 있다
+
+DBeaver
+
+
+
+
+Backend API가 접속하기 위해  
+
+24시간 기다리는 >> DB 서버  3306 포트
+
+
+터미널에 mysql -u root -p 하면 비밀번호 입력창이 나온다
+
+
+use mysql
+mysql 데이터베이스 안에 있는 
+mysql 테이블에서 작동하도록 해줘
+
+테이블(컬렉션 대용)
+
+오늘 설치해야 되는 것
+
+MySQL
+DBeaver
+
+13-01에 yarn install도 하고 graphql로 봤었다.
+
+TypeORM 설치해야 한다. 13- 02에
+
+yarn add @nestjs/typeorm typeorm mysql2
+
+
+
+boards.entity.ts 만들 때 
+ts에서는 id나 number라는 타입을 만들어야 된다
+
+
+app.module의 entity[] << 안에 넣으면 import
+
+@Field(() => Int) 
+
+type설정을 field로 하고
+
+@Field는 왜 사용하는가?
+
+resolver에서 fetchBoards를 하면 [Board] 
+
+type Board {
+    number: Int!
+    writer: String!
+
+} 
+
+등등 스키마 틀 같이 이런 것을 만드려면 @InputType()으로 이름 만들고
+@Field를 사용해서 writer : string 등등 만든다.
+
+
+code-first 하면 스키마 파일이 자동으로 제너레이트
+
+그래도 어느정도는 입력해야된다
+
+
+
+13-03에 
+
+08-02
+.dockerignore
+.env
+docker-compose.yaml
+dockerfile 
+
+복사해온다
+
+graphql에서는 String 대문자
+typescript 에서는 string << s 소문자
+
+
+
+오늘 배운 것
+
+graphql api를
+
+nest.js에서 만들어보았다
+
+코드 퍼스트만 좀 생소
+
+나머지는 기존이랑 동일하다 노션 보면서 해보자
+
+Mongoose와
+typeORM 설정 다르다
+
+마지막에 .env까지 적용을 해봤는데 좀 더 안전하게 할 수 있다
+
+다음시간에는 데이터베이스에 대해 집중적으로 본다.
+
