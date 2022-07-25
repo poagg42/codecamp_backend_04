@@ -1,0 +1,65 @@
+char는 고정형  >> 일단 4칸을 잡고 나머지 빈칸으로라도 채운다
+
+varchar는 가변형 >> 100칸을 잡았다면 중구난방으로 20칸 잡고 또 30칸
+
+우리가 했던 ERD를 vscode로 해본다
+
+
+onetoone은 기준을 잡아야한다
+@JoinColumn() 을 해준다.
+
+ManyToMany는 상대가 보는 나도 해준다.
+
+그리고 누가 기준인가?
+
+어디다가 기준을 줘도 상관없다
+
+@JoinTable()
+
+이것을 DBeaver에서 확인할 수 있다
+
+우선 app.module.ts에 가서 entities에 등록한다.
+entities: [__dirname + '/apis/**/*.entity.*']
+
+를 해준다. 
+
+cd 16-01  가서
+
+docker compose build 
+docker compose up 한 다음에 
+
+DBeaver에서 확인한다.
+
+sql에서 이제 해보는데
+
+직접 sql에서 작성하는 것을 로우쿼리라고 한다.
+
+select *
+insert into
+update product ( set price = 18000  where name = "마우스")  << where 조건을 설정해야 한다.
+
+from product p, product_saleslocation ps << 별명을 붙이고
+
+select p.id << 등등 별명. 으로 적어본다
+
+나만의 이름으로 바꾸고 싶을 때 뒤에 as << 붙인다음에 ex as "상세주소" 하면 된다
+
+
+sql 다른 기능
+
+집계 정렬
+sum
+
+order by price desc
+
+서브쿼리(보조쿼리)
+
+select name,
+       price,
+       isSoldout,
+       (select max(price) from product) as maxPrice
+    from product  << 대신에 select * from board도 가능하다.
+;
+
+오늘은 테이블을 만들고 조회 수정 삭제 등등
+

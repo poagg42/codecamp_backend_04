@@ -34,13 +34,13 @@ export function getWelcomeTemplate( { name, age, school}){
     // console.log(mytemplate)
 }   
    
-export async function sendTemplateToEmail(myemail,result){
+export async function sendTemplateToEmail(myemail,mytemplate){
     // console.log(myemail + "주소로 가입하면 템플릿" + result + "을 전송합니다!!!")
     const EMAIL_USER = process.env.EMAIL_USER
     const EMAIL_PASS = process.env.EMAIL_PASS
     const EMAIL_SENDER = process.env.EMAIL_SENDER
    const transporter = nodemailer.createTransport({
-        service: "gmail",
+        service: "gmail",   
         auth: {
             user: EMAIL_USER,
             pass: EMAIL_PASS,
@@ -52,9 +52,9 @@ export async function sendTemplateToEmail(myemail,result){
         from: EMAIL_SENDER,
         to: myemail,
         subject: "[코드캠프] 가입을 축하합니다!!!",
-        html: result
+        html: mytemplate
     })
-    console.log(response)
+   
 
 
 

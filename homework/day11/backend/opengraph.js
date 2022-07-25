@@ -34,7 +34,7 @@ export async function getOpenGraph(contents) {
             openGraph[key] = content
         })
 
-        console.log('결과', openGraph)
+        // console.log('결과', openGraph)
         return openGraph
     }
 }  // 스크래핑과 REST API 해야 된다.

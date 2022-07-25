@@ -22,13 +22,26 @@ mongoose.connect("mongodb://mini_database:27017/codecamp")
 
 
 app.post('/user', async function (req,res){
-
-    const find = await Token.findOne({isAuth : true})
-
+    const find = await Token.findOne({phone: req.body.phone})
+    console.log(find)
     if(find===null) { // 있으면 전체 데이터 반환 없으면 null
-        return res.status(422), res.send("에러!! 핸드폰 번호가 인증되지 않았습니다")
-    } else { 
+        res.status(422); 
+        res.send("에러!! 핸드폰 번호가 인증되지 않았습니다");
+    } 
+    
+    if (find.isAuth === false){
+        
+        res.status(422);
+        res.send("에러!! 인증번호가 인증되지 않았습니다")
+    } else if(find.isAuth === true){
+    
+    function maskingNumber(Number) {
+        let arr = Number.split("");
+        arr = arr.fill("*", 8).toString().replace(/,/g, "");
+        return arr;
+    }
 
+    const newPersonal = maskingNumber(req.body.personal)
     // // 데이터 등록하는 로직(데이터베이스에 저장하기) 
     
     // const user1 = req.body.myuser;
@@ -38,7 +51,7 @@ app.post('/user', async function (req,res){
     const user = new User({
         name: req.body.name,
         email: req.body.email,
-        personal: req.body.personal,
+        personal: newPersonal,
         prefer: req.body.prefer,
         pwd: req.body.pwd,
         phone: req.body.phone,
@@ -47,23 +60,28 @@ app.post('/user', async function (req,res){
         // return res.send()
         })
         await user.save()
-    
-        res.send(user.id)
-    
+        const userId = await Token.findOne({phone: phone});
+        res.send(userId._id)
+   
+        
   // 1. 이메일이 정상인지 확인(1-존재여부, 2-"@"포함여부)
-  const isValid = checkValidationEmail(user1.email);
-  if (isValid) {
+  const isValid = checkValidationEmail(email);
+  if (isValid===false) return; 
     // 2. 가입환영 템플릿 만들기
-    const mytemplate = getWelcomeTemplate(user1);
+    const mytemplate = getWelcomeTemplate({
+        name,
+        phone,
+        prefer,
+    });
 
     // 3. 이메일에 가입환영 템플릿 전송하기
-    sendTemplateToEmail(user1.email, mytemplate);
+    sendTemplateToEmail(email, mytemplate);
     res.send("가입완료!!!");
 
   }
 
     }
-})
+)
 
 
 app.get('/users', async function (req,res){
@@ -79,50 +97,58 @@ app.post('/tokens/phone', async function (req,res){
     const myphone = req.body.myphone
     // 1. 휴대폰번호 자릿수 맞는지 확인하기
    const isValid = checkValidationPhone(myphone)
+    
     if(isValid === false){
-       return
-    } 
+    return
+ } 
     // 2. 핸드폰 토큰 6자리 만들기
     const mytoken = getToken()
- 
-    // 3. 핸드폰번호에 토큰 전송하기
-    sendTokenToSMS(myphone,mytoken)
-    res.send("핸드폰으로 인증 문자가 전송되었습니다!")
 
-    const token = new Token ({
-        token: req.body.mytoken,
-        phone: req.body.myphone,
-        isAuth : req.body.isAuth
-        
-          //스키마의 틀만 잡는다.
-    })
+    const jjj = await Token.findOne({phone : myphone})
+    if(jjj !== null){
+        await Token.updateOne({phone : myphone}, {token : mytoken})
+    } else {
+        const token = new Token ({
+            token: mytoken,
+            phone: myphone,
+            isAuth : false
+              //스키마의 틀만 잡는다.
+        })
+
 
     await token.save()
 
-
+    }
+        // 3. 핸드폰번호에 토큰 전송하기
+        sendTokenToSMS(myphone,mytoken)
+        res.send("핸드폰으로 인증 문자가 전송되었습니다!")
 
 }
 )
 
 app.patch('/tokens/phone', async function (req,res){
     
-    const find = await Token.findOne({phone: req.body.myphone}) // 있으면 전체 데이터 반환 없으면 null
     
-    if(find===null){    
-        return res.send("false") //updateone에 findone이 내포되어 있다.
+    const find = await Token.findOne({phone: req.body.phone})  // 있으면 전체 데이터 반환 없으면 null
+    
+    if(find.token !== req.body.token){ 
+        res.status(422);   
+        res.send("false"); //updateone에 findone이 내포되어 있다.
     }
                                     // 어떤 데이터베이스에 접근할 것인가, 바꿔주는 값
-    const find2 = await Token.findOne({token: req.body.mytoken}) 
-    if(find2===null){
-        return res.send("false")
-    }  
+    // const find2 = await Token.findOne({token: req.body.mytoken}) 
+    // if(find2===null){
+    //     return res.send("false")
+    // }  
 
-    const find3 = await Token.updateOne({token: req.body.mytoken} , {isAuth : true})
-    if(find3 === !null){
-        return res.send("true")  // ???? 
+    if(find !== null){
+        await Token.updateOne({token: req.body.token} , {isAuth : true})
+         res.send("true")  // ???? 
+    
     }
-       
+   
 })
+       
 
 app.get('/starbucks',async function (req,res){
     const starbucks =  await Starbucks.find()

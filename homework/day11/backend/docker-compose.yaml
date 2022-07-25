@@ -7,6 +7,9 @@ services:
             dockerfile: Dockerfile
         volumes:
             - ./index.js:/mini_backend/index.js
+            - ./swagger/get.swagger.js:/mini_backend/./swagger/get.swagger.js
+            - ./swagger/patch.swagger.js:/mini_backend/./swagger/patch.swagger.js
+            - ./swagger/post.swagger.js:/mini_backend/./swagger/post.swagger.js
         ports:
             - 3000:3000
 
