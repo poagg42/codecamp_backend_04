@@ -1,0 +1,34 @@
+1. 목표 DB와 연동되는 API를 만들어보자! >>> TypeORM
+
+2. 에러 발생 - Try - Catch -Finally / Throw
+
+이제 localhost에서 하자 수업내용은
+
+nestjs에서는 dotenv를 설치하지 않고
+
+@nestjs/config를 설치한다.
+
+1.이벤트루프
+
+2. 콜스택, 태스크큐
+
+3. 매크로큐, 마이크로큐
+
+4. 마이크로큐 -async/await
+
+단계별로 되어야 한다.
+
+productcategory 1교시때 해보고
+
+localhost graphql로 진행했다
+ @PrimaryGeneratedColumn('uuid') //mysql 용
+  @Field(() => String) //graphql 용
+
+graphql은 필드가 필요하다
+
+쉽지 않았던 과제
+
+Field와 findall() << 오류 났었던 것 기억하자
+
+
+

@@ -1,10 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Product } from 'src/apis/product/entities/product.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  user_code: string;
+  _code: string;
 
   @Column()
   id: string;
@@ -24,6 +30,7 @@ export class User {
   @Column()
   role: string;
 
-  @ManyToMany(() => Product, (products) => products.users)
+  @JoinColumn()
+  @ManyToMany(() => Product, (products) => products.user_code)
   products: Product[];
 }

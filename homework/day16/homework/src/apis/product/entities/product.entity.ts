@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToOne,
@@ -15,7 +16,7 @@ import { Payment } from 'src/apis/payment/entities/payment.entity';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn('uuid')
-  code: string;
+  _code: string;
 
   @Column()
   product_name: string;
@@ -44,6 +45,7 @@ export class Product {
   @ManyToOne(() => Payment)
   pay: Payment;
 
+  @JoinTable()
   @ManyToMany(() => User, (users) => users.products)
   users: User[];
 }

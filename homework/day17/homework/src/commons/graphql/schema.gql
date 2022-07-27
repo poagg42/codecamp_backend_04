@@ -1,0 +1,69 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Image {
+  _code: String!
+  url: String!
+  product_code: String!
+}
+
+type Category {
+  _code: String!
+  category_name: String!
+}
+
+type User {
+  _code: String!
+  id: String!
+  password: String!
+  email: String!
+  phone: String!
+  region: String!
+  role: String!
+}
+
+type Payment {
+  _code: String!
+  price: String!
+  pay_log: String!
+}
+
+type Product {
+  _code: String!
+  product_name: String!
+  user_code: String!
+  price: Int!
+  region: String!
+  desc: String!
+  image: Image!
+  category: Category!
+  pay: Payment!
+  users: User!
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+}
+
+input CreateProductInput {
+  product_name: String!
+  user_code: String!
+  price: Int!
+  region: String!
+  desc: String!
+}
+
+input UpdateProductInput {
+  product_name: String
+  user_code: String
+  price: Int
+  region: String
+  desc: String
+}
