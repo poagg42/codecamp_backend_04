@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Image } from 'src/apis/image/entities/image.entity';
-import { Category } from 'src/apis/category/entities/category.entity';
+import { ProductCategory } from 'src/apis/category/entities/category.entity';
 import { User } from 'src/apis/user/entities/user.entity';
 import { Payment } from 'src/apis/payment/entities/payment.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
@@ -47,9 +47,9 @@ export class Product {
   image: Image;
 
   @JoinColumn()
-  @OneToOne(() => Category)
-  @Field(() => Category)
-  category: Category;
+  @OneToOne(() => ProductCategory)
+  @Field(() => ProductCategory)
+  category: ProductCategory;
 
   @JoinColumn()
   @ManyToOne(() => Payment)

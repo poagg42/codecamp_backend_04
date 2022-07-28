@@ -16,14 +16,14 @@ export class ProductService {
 
   findAll() {
     return this.productRepository.find({
-      relations: ['productSaleslocation', 'productCategory'],
+      relations: ['productSaleslocation'],
     });
   }
 
   findOne(productId) {
     this.productRepository.findOne({
       where: { id: productId },
-      relations: ['productSaleslocation', 'productCategory'],
+      relations: ['productSaleslocation'],
     });
   }
 
