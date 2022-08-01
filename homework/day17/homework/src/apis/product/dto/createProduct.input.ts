@@ -18,4 +18,13 @@ export class CreateProductInput {
 
   @Field(() => String)
   desc: string;
+
+  @Field(() => String)
+  image: string;
+
+  @Field(() => String)
+  category: string;
+
+  @Field(() => String)
+  pay: string;
 }

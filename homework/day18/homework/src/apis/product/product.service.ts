@@ -88,10 +88,17 @@ export class ProductService {
     // return result.affected ? true : false;
 
     // 2. 소프트 삭제(직접 구현) -> isDeleted 삭제가 된 것처럼 보여주는 것
-    // this.productRepository.update({ id: productId }, { isDeleted: true}) 앞이 조건, 뒤가 수정할 내용
+    // await this.productRepository.update(
+    //   { _code: productId },
+    //   { isDeleted: true },
+    // );
+    // 앞이 조건, 뒤가 수정할 내용
 
     // 3. 소프트 삭제(직접 구현) -> deletedAt (delete된 시간을 적기 시작함)
-    // this.productRepository.update({id: productId}, {deletedAt: new Date() });
+    this.productRepository.update(
+      { _code: productId },
+      { deletedAt: new Date() },
+    );
     // 시간이 저장 되어있으면 삭제, 아무 것도 없다(null)일 경우 삭제가 아니다
     // 하나의 컬럼으로 시간도 알 수 있고 삭제 유무도 알 수 있다.
     // 그러나 문제점 1) deletedAt 컬럼을 만들어줘야 한다.
@@ -107,9 +114,9 @@ export class ProductService {
 
     // 5. 소프트 삭제(TypeORM 제공) -> softDelete 다른 것들로도 삭제 가능
 
-    const result = await this.productRepository.softDelete({
-      _code: productId,
-    });
-    return result.affected ? true : false;
+    // const result = await this.productRepository.softDelete({
+    //   _code: productId,
+    // });
+    // return result.affected ? true : false;
   }
 }

@@ -41,6 +41,14 @@ export class Product {
   @Field(() => String)
   desc: string;
 
+  @Column({ default: false }) //isDeleted로 softDelete를 한다.
+  @Field(() => Boolean) // 처음에는 삭제가 되지 않은 상태이므로 기본값을 isDeleted가 false로 나타나게 한다.
+  isDeleted: boolean; // 삭제 요청 시, 데이터를 완전히 삭제하는 것이 아닌 isDeleted가 true로 update되게 API를 만들자.
+
+  @Column({ nullable: true }) // true일 경우 deletedAt의 데이터가 있는 경우(삭제된 날짜 데이터)
+  @Field(() => Date) // false일 경우 deletedAt의 데이터인 날짜가 없는 null 상태
+  deletedAt: Date;
+
   @JoinColumn()
   @OneToOne(() => Image)
   @Field(() => Image)

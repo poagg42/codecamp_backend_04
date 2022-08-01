@@ -58,6 +58,9 @@ input CreateProductInput {
   price: Int!
   region: String!
   desc: String!
+  image: String!
+  category: String!
+  pay: String!
 }
 
 input UpdateProductInput {
@@ -66,4 +69,7 @@ input UpdateProductInput {
   price: Int
   region: String
   desc: String
+  image: String
+  category: String
+  pay: String
 }
