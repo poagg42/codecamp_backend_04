@@ -1,0 +1,82 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ProductCategory {
+  _code: String!
+  name: String!
+}
+
+type Image {
+  _code: String!
+  url: String!
+  product_code: String!
+}
+
+type Payment {
+  _code: String!
+  price: String!
+  pay_log: String!
+}
+
+type User {
+  _code: String!
+  password: String!
+  email: String!
+  age: String!
+  name: String!
+}
+
+type Product {
+  id: String!
+  name: String!
+  description: String!
+  price: Int!
+  isSoldout: Boolean!
+  productCategory: ProductCategory!
+  user: User!
+  payment: Payment!
+  image: Image!
+  productTags: ProductTag!
+}
+
+type ProductTag {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchUser: String!
+  fetchLoginUser(email: String!): User!
+}
+
+type Mutation {
+  login(email: String!, password: String!): String!
+  restoreAccessToken: String!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productID: String!): Boolean!
+  updateUserPwd(email: String!, updateUserPassword: String!): User!
+  createUser(email: String!, password: String!, name: String!, age: Int!): User!
+  deleteLoginUser(email: String!): Boolean!
+  createProductCategory(name: String!): ProductCategory!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Int!
+  productCategory: String!
+  productTags: [String!]!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Int
+  productCategory: String
+  productTags: [String!]
+}
