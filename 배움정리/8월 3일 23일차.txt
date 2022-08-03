@@ -1,0 +1,47 @@
+function aaa(qqq){
+
+    // 함수 로직
+}
+
+aaa("안녕하세요")
+
+aaa(123)  // 123 대신 qqq에 함수가 들어갈 수 있다.
+
+aaa(function(){})
+aaa(( ) => { })
+
+// 함수의 인자(매개변수)로 들어가는 함수를 콜백함수라고 한다.
+
+// 내가 지금 이 함수를 넣어줄 거니까 니가 보고서 필요할 때 실행시켜줘
+
+map((el) => {})    // 맵 안에 들어 있는 것이 콜백 함수 
+setTimeout(() => {}, 1000)  // 1초 뒤에 실행될 내용 ,setTimeout이라는 함수 안에 매개변수 두 개를 넣었다.
+
+function setTimeout(a,b){function aaa(qqq){
+
+    }
+}
+
+
+
+콜백 지옥을 개선하기 위해 promise 사용
+
+promise는 갔다와서 그게 끝나면(then) 그 때 받은 결과를 처리한다.
+
+promise가 제공하는 기능이 .then
+
+axios안에는 promise가 동작하고 있다.
+
+
+
+예시
+
+ const result = axios.get('https://koreanjson.com/posts/1').then(res => console.log(res))
+
+
+.then도 콜백처럼 안으로 들어간다 그래서 return을 쓰면 아래의 .then으로 가게되고 줄 맞춤
+
+promise chain 
+promise를 리턴할 때 아래의 then에서 받을 수 있다.
+
+.then 대신에 쓸 수 있는게 await 
