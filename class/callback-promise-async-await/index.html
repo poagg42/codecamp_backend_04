@@ -45,21 +45,20 @@
                     .then((res) => {
                         const num = res.data.split(" ")[0];
 
-                        axios
-                            .get(`http://koreanjson.com/posts/${num}`)
-                            .then((res) => {
-                                const uID = res.data.UserId;
+                        axios.get(`http://koreanjson.com/posts/${num}`);
+                    })
+                    .then((res) => {
+                        const uID = res.data.UserId;
 
-                                axios
-                                    .get(
-                                        `http://koreanjson.com/posts?userId=${uID}`
-                                    )
-                                    .then((res) => {
-                                        console.log(res.data);
-                                    });
-                            });
+                        return axios.get(
+                            `http://koreanjson.com/posts?userId=${uID}`
+                        );
+                    })
+                    .then((res) => {
+                        console.log(res.data);
                     });
             }
+
             async function myAsyncAwait() {
                 const res1 = await axios.get(
                     "http://numbersapi.com/random?min=1&max=200"
