@@ -44,7 +44,7 @@ export class User {
   @Field(() => String)
   name: string;
 
-  @Column()
+  @Column({ default: 0 })
   @Field(() => Int)
   point: number;
 

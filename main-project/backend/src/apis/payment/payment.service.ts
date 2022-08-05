@@ -22,24 +22,23 @@ export class PaymentService {
       user: _user,
       status: PAYMENT_STATUS_ENUM.PAYMENT,
     });
-    console.log("1")
-    await this.paymentRepository.save({});
+    console.log(payment);
+    console.log('1');
+    await this.paymentRepository.save(payment);
 
     // 2. 유저의 돈 찾아오기
     const user = await this.usersRepository.findOne({
       where: { _code: _user._code },
     });
-    console.log("2")
+    console.log('2');
+    console.log(user);
     // 3. 유저의 돈 업데이트
     await this.usersRepository.update(
       { _code: _user._code },
       { point: user.point + amount },
     );
-    console.log("3")
+    console.log('3');
     // 4. 최종결과 프론트엔드에 돌려주기
     return payment;
-
-  
   }
-  
 }

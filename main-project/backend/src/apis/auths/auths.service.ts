@@ -11,7 +11,7 @@ export class AuthsService {
 
   setRefreshToken({ user, res }) {
     const refreshToken = this.jwtService.sign(
-      { email: user.email, sub: user.id }, //
+      { email: user.email, sub: user._code }, //
       { secret: 'myRefreshKey', expiresIn: '2w' },
     );
 
@@ -27,7 +27,7 @@ export class AuthsService {
 
   getAccessToken({ user }) {
     return this.jwtService.sign(
-      { email: user.email, sub: user.id }, //
+      { email: user.email, sub: user._code }, //
       { secret: 'myAccessKey', expiresIn: '1h' },
     ); //
   }

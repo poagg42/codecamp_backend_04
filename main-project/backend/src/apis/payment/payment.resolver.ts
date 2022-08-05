@@ -5,12 +5,9 @@ import { IContext } from 'src/commons/type/context';
 import { Payment } from './entities/payment.entity';
 import { PaymentService } from './payment.service';
 
-
 @Resolver()
 export class PaymentResolver {
-  constructor(
-    private readonly paymentService: PaymentService,
-  ) {}
+  constructor(private readonly paymentService: PaymentService) {}
 
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Payment)
@@ -20,6 +17,7 @@ export class PaymentResolver {
     @Context() context: IContext,
   ) {
     const user = context.req.user;
+    console.log(user);
     return this.paymentService.create({ impUid, amount, user });
   }
 }
