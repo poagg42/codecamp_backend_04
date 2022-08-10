@@ -1,0 +1,74 @@
+1. 결제에 성공했는데 포인트 업데이트 실패 -> ACID / Transaction
+
+2. 포인트가 나타났다 사라졌다 제멋대로?? -> Isolation-Level
+
+3. 여러 명한테 돈을 받았었는데..? -> Lock
+
+
+트랙잭션 -> 작업의 단위
+
+PointTransaction 테이블에 충전했다고 1줄 작성한다.
+
+서비스에서 가장 큰 문제
+
+-> 데이터의 오염
+
+차라리 전체 다 실패하고 다시 시도하는 게 안전
+
+트랜잭션
+ACID
+
+Atomicity(원자성) : 모두 성공할거 아니면 다 실패하게 해줘
+Consistency(일관성) : 똑같은 쿼리는 조회할 때 마다 동일해야돼
+Isolation(격리성) : 철수꺼 처리하는 동안 영희는 기다려줄래?
+Durability(지속성) : 한 번 성공했으면 장애가 발생해도 살아있어야돼!
+
+문제가 많은 Isolation-Level
+
+커밋을 해야 하나의 트랜잭션이 끝이 난다.
+
+2에서 fetch를 하면 쿼리가 1초마다 반복한다.
+
+여기서 등록을하면 등록을 한 쿼리가 나온다
+
+-> 일관성이 깨진다.
+
+중간에 데이터가 바뀜
+
+
+Isolation-Level
+
+Read-Uncommitted commit되지 않은 데이터를 읽는다.(dirty-read)
+
+Read-Committed Dirty-Read 해결 완료 -> Non - Repeatable-Read 해결 안 됐다.
+
+Repeatable-Read   -> 일관성을 보장한다.  non-repeatable-Read  // Phantom-Read 해결 못함 그러나 mysql에서 디폴트로 차단
+
+Serializable 
+
+에서는 Lock을 걸 수 있다.
+
+낙관적락 // 낙관적으로 바라보는 것(에이 그럴리가 없어) 2차적인 방어책
+
+비관적락 // 그냥 조심하는 것 바로 
+
+- 공유락(Shared Lock) 읽기전용 쓰기잠금 pessimistic_read
+- 베타락(Exclusive Lock) 읽기쓰기 모두잠금 pessimistic_write
+
+예시에서는 조회 자체를 막아야하기 때문에 베타락
+
+A -> B -> C
+A <- B <- C    서로가 중간에 Lock이 되어서 막혀버리는 상황  -> 데드락
+
+쿼리 둘 중에 하나는 종료를 시켜야 한다. 덜 중요한 것을 취소시킨다.
+
+예방하는 것이 중요
+
+API를 만들 때 역행하는 것을 만들지 않는다.
+
+
+
+이번 시간에는 트랜잭션과 Isolation에 대해 알아봤다.
+
+다시 돌아가서 api만든 것을 보면 문제점을 알 수 있다.
+

@@ -19,7 +19,7 @@
     <script>
       function requestPay() {
         const name = "마우스";
-        const amount = 100;
+        const myAmount = Number(document.getElementById("amount").value);
 
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp70467342"); // Example: imp00000000
@@ -30,17 +30,17 @@
             pay_method: "card",
             // merchant_uid: "ORD20180131-0000011",
             name: name,
-            amount: amount,
+            amount: myAmount,
             buyer_email: "",
             buyer_name: "홍길동",
             buyer_tel: "010-4242-4242",
             buyer_addr: "서울특별시 강남구 신사동",
             buyer_postcode: "01181",
           },
-          function (rsp) {
+          (rsp) => {
             // callback
             if (rsp.success) {
-              // 결제 성공 시 로직,
+              // 결제 성공 시:
 
               axios.post(
                 "http://localhost:3000/graphql",
@@ -56,7 +56,7 @@
                 {
                   headers: {
                     Authorization:
-                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvYWdnNDJAZ21haWwuY29tIiwic3ViIjoiMzZjNWI3ZGEtZTQzNS00NGUxLTk5MDEtNDE1ZDY0NzY1MDA4IiwiaWF0IjoxNjU5NjU5NjQwLCJleHAiOjE2NTk2NjMyNDB9.aJkIy6yMHA7Ow8h-s4dxrqkrphXegBLama0ShhmazOk",
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvYWdnNDJAZ21haWwuY29tIiwic3ViIjoiMzZjNWI3ZGEtZTQzNS00NGUxLTk5MDEtNDE1ZDY0NzY1MDA4IiwiaWF0IjoxNjU5OTcyMjU3LCJleHAiOjE2NjA1NzcwNTd9.n-MXUSJY1kg-0NmkFKawQzlvmTGWD7n7nNX_wG4gvjg",
                   },
                 }
               );
@@ -73,6 +73,7 @@
     </script>
   </head>
   <body>
+    결제할 금액: <input type="text" id="amount" />
     <button onclick="requestPay()">결제하기</button>
   </body>
 </html>

@@ -1,0 +1,13 @@
+use myproject88 // DB 변경하기
+
+show tables; // 테이블 조회하기
+
+show variables; // 커넥션 최대값 보기
+
+set global max_connections = 15; // 커넥션 최대값 조정
+
+show status; // 현재 연결된 커넥션 갯수(Thread_connected) 보기
+
+show processlist; // 현재 연결된 커넥션 목록 보기
+
+kill 64; // 커넥션 종료(kill 커넥션ID)

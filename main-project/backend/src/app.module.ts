@@ -31,7 +31,7 @@ import { PaymentModule } from './apis/payment/payment.module';
       database: process.env.DATABASE_DATABASE,
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
-      // logging: true,
+      logging: true,
     }),
   ],
 })

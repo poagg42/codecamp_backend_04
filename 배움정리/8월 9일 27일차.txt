@@ -1,0 +1,12 @@
+1. 이미지 저장 과정을 알려면 숲을 먼저 봐야된다. -> GCP / Cloud-Storage
+
+2. 이미지가 다 저장될 때까지 기다려 -> Promise
+
+3. 이미지 여러 개를 한방에 올리자!! -> Promise.all
+
+4. 업로드 끝나면 자동으로 함수를 실행시켜줘 -> Cloud-Function-Trigger
+
+
+S3(Simple Storage Service) -> AWS(아마존) 많이쓴다 GCP(구글) 더 싸다
+
+
