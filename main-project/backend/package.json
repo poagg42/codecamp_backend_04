@@ -21,6 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@babel/helper-compilation-targets": "^7.18.9",
+    "@google-cloud/storage": "^6.3.0",
     "@nestjs/apollo": "^10.0.17",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
@@ -30,6 +32,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.0",
+    "@types/graphql-upload": "^8.0.11",
     "apollo-server-express": "^3.10.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
@@ -38,16 +41,19 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "graphql": "^16.5.0",
+    "graphql-upload": "^13.0.0",
     "mysql2": "^2.3.3",
     "nestjs": "^0.0.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-kakao": "^1.0.1",
+    "passport-naver": "^1.0.6",
     "passport-naver-v2": "^2.0.8",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "sharp": "^0.30.1",
     "typeorm": "^0.3.7"
   },
   "devDependencies": {
@@ -73,9 +79,9 @@
     "supertest": "^6.1.3",
     "ts-jest": "28.0.5",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.9.1",
     "tsconfig-paths": "4.0.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.7.4"
   },
   "jest": {
     "moduleFileExtensions": [

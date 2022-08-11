@@ -7,6 +7,7 @@ import { ProductModule } from './apis/products/product.module';
 import { UsersModule } from './apis/users/users.module';
 import { AuthsModule } from './apis/auths/auths.module';
 import { PaymentModule } from './apis/payment/payment.module';
+import { FilesModule } from './apis/files/files.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PaymentModule } from './apis/payment/payment.module';
       isGlobal: true,
     }),
     ProductModule,
+    FilesModule,
     UsersModule,
     PaymentModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
