@@ -1,9 +1,9 @@
-# 쿼리 검색 속도 비교
+# 데이터 갯수 조회
 select count(*) from board
 ;
 
 
-
+# 쿼리 검색 속도 비교
 select *
   from board
  where title = '0.06842220953518731'
@@ -14,7 +14,7 @@ select *
  where number = 20
 ;
 
-
+# 옵티마이저로 실행계획 확인
 
 explain
  select *
@@ -36,7 +36,7 @@ show index from board
 create index idx_title on board(title)
 ;
 
-#옵티마이저 실행계획 확인
+#옵티마이저 실행계획 다시 확인
 
 explain
  select *
