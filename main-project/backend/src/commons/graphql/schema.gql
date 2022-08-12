@@ -47,6 +47,7 @@ type Product {
   description: String!
   price: Int!
   isSoldout: Boolean!
+  url: String!
   productCategory: ProductCategory!
   user: User!
   payment: Payment!

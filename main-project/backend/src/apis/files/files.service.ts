@@ -11,10 +11,10 @@ export class FilesService {
     const waitedFiles = await Promise.all(files);
     console.log(waitedFiles); // [file, file]
 
-    const bucket = 'b4_myproject';
+    const bucket = 'younghoogogo';
     const storage = new Storage({
-      projectId: 'b04-myproject',
-      keyFilename: 'b04-myproject-aee7eebcc2e0.json',
+      projectId: 'younghoogogo',
+      keyFilename: 'younghoogogo-0febf7b5c2a9.json',
     }).bucket(bucket);
 
     const results = await Promise.all(

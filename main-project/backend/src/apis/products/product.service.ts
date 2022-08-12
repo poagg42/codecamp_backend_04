@@ -1,6 +1,7 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ProductImage } from '../image/entities/image.entity';
 import { ProductCategory } from '../productsCategories/entities/productCategory.entity';
 import { ProductTag } from '../productsTags/entities/productsTag.entity';
 import { Product } from './entities/product.entity';
@@ -16,6 +17,9 @@ export class ProductService {
 
     @InjectRepository(ProductTag)
     private readonly productTagRepository: Repository<ProductTag>,
+
+    @InjectRepository(ProductImage)
+    private readonly productImageRepository: Repository<ProductImage>, // 바꾼 부분
   ) {}
 
   findAll() {
@@ -42,8 +46,13 @@ export class ProductService {
     // });
 
     // 2. 상품과 상품거래위치를 같이 등록하는 경우
-    const { productSaleslocation, productCategoryId, productTags, ...product } =
-      createProductInput;
+    const {
+      productImage, //  바꾼 부분
+      productSaleslocation,
+      productCategoryId,
+      productTags,
+      ...product
+    } = createProductInput;
     //  rest 파라미터를 이용해 두 번 저장
     const result = await this.productCategoryRepository.save({
       ...productSaleslocation, //스프레드 연산자
@@ -71,6 +80,7 @@ export class ProductService {
     }
     const result3 = await this.productRepository.save({
       ...product,
+      productImage: productImage,
       productSaleslocation: result, // result 통째로 넣기 vs id만 넣기
       productCategory: { id: productCategoryId },
       productTags: result2,
