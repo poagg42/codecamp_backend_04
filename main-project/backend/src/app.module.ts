@@ -1,5 +1,5 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -8,6 +8,9 @@ import { UsersModule } from './apis/users/users.module';
 import { AuthsModule } from './apis/auths/auths.module';
 import { PaymentModule } from './apis/payment/payment.module';
 import { FilesModule } from './apis/files/files.module';
+import type { RedisClientOptions } from 'redis';
+import * as redisStore from 'cache-manager-redis-store';
+import { BoardsModule } from './apis/boards/boards.module';
 
 @Module({
   imports: [
@@ -15,6 +18,7 @@ import { FilesModule } from './apis/files/files.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    BoardsModule,
     ProductModule,
     FilesModule,
     UsersModule,
@@ -34,6 +38,11 @@ import { FilesModule } from './apis/files/files.module';
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
       logging: true,
+    }),
+    CacheModule.register<RedisClientOptions>({
+      store: redisStore,
+      url: 'redis://my-redis:6379',
+      isGlobal: true,
     }),
   ],
 })

@@ -2,15 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ProductCategory {
-  _code: String!
-  name: String!
-}
-
-type Image {
+type ProductImage {
   _code: String!
   url: String!
   product_code: String!
+}
+
+type ProductCategory {
+  _code: String!
+  name: String!
 }
 
 type User {
@@ -47,11 +47,10 @@ type Product {
   description: String!
   price: Int!
   isSoldout: Boolean!
-  url: String!
   productCategory: ProductCategory!
   user: User!
   payment: Payment!
-  image: Image!
+  image: ProductImage!
   productTags: ProductTag!
 }
 
@@ -61,7 +60,15 @@ type ProductTag {
   products: [Product!]!
 }
 
+type Board {
+  number: Int!
+  writer: String!
+  title: String!
+  contents: String!
+}
+
 type Query {
+  fetchBoards: [Board!]!
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
   fetchUser: String!
@@ -71,6 +78,8 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
+  logout: String!
+  createBoard(writer: String, title: String!, contents: String!, createBoardInput: CreateBoardInput!): String!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productID: String!): Boolean!
@@ -80,6 +89,12 @@ type Mutation {
   deleteLoginUser(email: String!): Boolean!
   createPayment(impUid: String!, amount: Int!): Payment!
   cancelPayment(impUid: String!, amount: Int!): Payment!
+}
+
+input CreateBoardInput {
+  writer: String!
+  title: String!
+  contents: String!
 }
 
 input CreateProductInput {

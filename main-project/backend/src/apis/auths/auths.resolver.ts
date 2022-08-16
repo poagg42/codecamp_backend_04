@@ -1,17 +1,28 @@
-import { UnprocessableEntityException } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  Inject,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { UsersService } from '../users/users.service';
 import { AuthsService } from './auths.service';
 import * as bcrypt from 'bcrypt';
 import { IContext } from 'src/commons/type/context';
 import { GqlAuthRefreshGuard } from './gql-auth.guard';
+import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+import * as jwt from 'jsonwebtoken';
 
 @Resolver()
 export class AuthsResolver {
   constructor(
     private readonly usersService: UsersService,
     private readonly authsService: AuthsService, //
+
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
   ) {}
 
   @Mutation(() => String)
@@ -43,5 +54,44 @@ export class AuthsResolver {
     @Context() context: IContext, //
   ) {
     return this.authsService.getAccessToken({ user: context.req.user });
+  }
+  //
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(() => String)
+  async logout(@Context() context: any) {
+    // console.log(context.req.headers);
+
+    try {
+      const accessToken = context.req.headers.authorization.slice(7);
+      const refreshToken = context.req.headers.cookie.slice(13);
+      const result: any = jwt.verify(accessToken, 'myAccessKey');
+      console.log('result : ', result);
+      jwt.verify(refreshToken, 'myRefreshKey'); //accessToken과 refreshToken 검증
+
+      await this.cacheManager.set(`accessToken:${accessToken}`, 'accessToken', {
+        ttl: result.exp,
+      });
+
+      await this.cacheManager.set(
+        `refreshToken:${refreshToken}`,
+        'refreshToken',
+        {
+          ttl: result.exp,
+        },
+      );
+      // 2. 캐시에서 조회하는 연습
+      const mycache1 = await this.cacheManager.get(
+        `accessToken:${accessToken}`,
+      );
+      const mycache2 = await this.cacheManager.get(
+        `refreshToken:${refreshToken}`,
+      );
+      console.log(mycache1);
+      console.log(mycache2);
+
+      return '로그아웃에 성공했습니다.';
+    } catch {
+      throw new UnauthorizedException('00');
+    }
   }
 }

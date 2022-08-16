@@ -1,0 +1,21 @@
+Elasticsearch CRUD 실습
+
+mapping은 등록된 필드에 대해서는 수정이 안 된다.
+
+대신 추가는 가능
+
+
+오늘 배운 것 
+
+Elasticsearch의 내부 작동원리를 알아야 작동이 된다
+
+왜 best는 검색이 되고 bestshop은 검색이 안 됐을까?
+
+내부가 tokenizer와 ... 등등으로
+
+analyzer로 묶여있는데
+
+bestshop을 ngram단위로 따로 저장해야 된다.
+
+prefix 한 단어면 해결이 가능할 것 같지만
+

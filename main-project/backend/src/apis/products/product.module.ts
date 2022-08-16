@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductImage } from '../productimage/entities/productimage.entity';
 import { ProductCategory } from '../productsCategories/entities/productCategory.entity';
 import { ProductTag } from '../productsTags/entities/productsTag.entity';
 import { Product } from './entities/product.entity';
@@ -12,6 +13,7 @@ import { ProductService } from './product.service';
       Product, //
       ProductCategory,
       ProductTag,
+      ProductImage,
     ]),
   ],
   providers: [

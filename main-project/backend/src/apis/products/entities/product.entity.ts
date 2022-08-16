@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Image } from 'src/apis/image/entities/image.entity';
+
 import { Payment } from 'src/apis/payment/entities/payment.entity';
+import { ProductImage } from 'src/apis/productimage/entities/productimage.entity';
 import { ProductCategory } from 'src/apis/productsCategories/entities/productCategory.entity';
 import { ProductTag } from 'src/apis/productsTags/entities/productsTag.entity';
 import { User } from 'src/apis/users/entities/user.entity';
@@ -55,9 +56,9 @@ export class Product {
   payment: Payment;
 
   @JoinColumn()
-  @OneToOne(() => Image)
-  @Field(() => Image)
-  image: Image;
+  @OneToOne(() => ProductImage)
+  @Field(() => ProductImage)
+  image: ProductImage;
 
   // @JoinColumn()
   // @OneToOne(() => ProductSaleslocation)

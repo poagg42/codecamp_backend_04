@@ -1,7 +1,7 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProductImage } from '../image/entities/image.entity';
+import { ProductImage } from '../productimage/entities/productimage.entity';
 import { ProductCategory } from '../productsCategories/entities/productCategory.entity';
 import { ProductTag } from '../productsTags/entities/productsTag.entity';
 import { Product } from './entities/product.entity';
