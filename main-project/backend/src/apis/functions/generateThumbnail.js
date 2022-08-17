@@ -1,5 +1,8 @@
+const { Storage } = require('@google-cloud/storage');
 const sharp = require('sharp');
-const { storage } = require('@google-cloud/storage');
+
+//import를 사용하기 위해서 package.json에 모듈화를 허용해야 되는데 지원이 안 됐다.
+// 그래서 require로 불러와서 사용하게 된다.
 
 /**
  * Triggered from a change to a Cloud Storage bucket.
@@ -7,9 +10,9 @@ const { storage } = require('@google-cloud/storage');
  * @param {!Object} event Event payload.
  * @param {!Object} context Metadata for the event.
  */
-exports.generateThumbnail = async (event, context) => {
+exports.thumbnailTrigger = async (event, context) => {
   // 1. event와 context의 데이터를 간단히 로그로 확인하기
-  console.log('안녕하세요! 저는 트리거입니다!!!');
+  console.log('hello world');
   console.log('===========================');
   console.log('context:', context);
   console.log('event', event);
@@ -27,8 +30,8 @@ exports.generateThumbnail = async (event, context) => {
   await Promise.all(
     [
       { size: 320, fname: 'thumb/s' },
-      { size: 320, fname: 'thumb/m' },
-      { size: 320, fname: 'thumb/l' },
+      { size: 640, fname: 'thumb/m' },
+      { size: 1280, fname: 'thumb/l' },
     ].map(
       (el) =>
         new Promise((resolve, reject) => {

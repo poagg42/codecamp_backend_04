@@ -69,7 +69,7 @@ type Board {
 
 type Query {
   fetchBoards: [Board!]!
-  fetchProducts: [Product!]!
+  fetchProducts(search: String!): [Product!]!
   fetchProduct(productId: String!): Product!
   fetchUser: String!
   fetchLoginUser(email: String!): User!
