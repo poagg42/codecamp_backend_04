@@ -3,42 +3,31 @@ import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
 import { CreateProductInput } from './dto/createProduct.input';
 import { UpdateProductInput } from './dto/updateProduct.input';
-import { CACHE_MANAGER, Inject } from '@nestjs/common';
-import { Cache } from 'cache-manager';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
 @Resolver()
 export class ProductResolver {
   constructor(
     private readonly productService: ProductService, //
-    private readonly elasticsearchService: ElasticsearchService,
 
-    @Inject(CACHE_MANAGER)
-    private readonly cacheManager: Cache,
+    private readonly elasticsearchService: ElasticsearchService, //
   ) {}
 
   @Query(() => [Product])
-  async fetchProducts(@Args('search') search: string) {
-    const mycache = this.cacheManager.get('search');
-    const pull = this.cacheManager.set('search', '');
-    const result = this.elasticsearchService.search({
-      index: 'myproduct',
+  async fetchProducts() {
+    // 엘라스틱서치에서 조회하기 연습!!(연습 이후에는 다시 삭제하기!!)
+    const result = await this.elasticsearchService.search({
+      index: 'myproduct04',
       query: {
         match_all: {},
       },
     });
-    console.log(JSON.stringify(result, null, ' '));
+    console.log(JSON.stringify(result));
 
-    if (mycache)
-      return mycache; // 1. Redis에 해당 검색어에 대한 검색 결과가 캐시 되어있는지 확인합니다. 2. 있으면 캐시되어있는 결과를 클라이언트에 반환합니다.
-    else return result; // 3. 없다면 ElasticSearch에서 해당 검색어를 검색합니다.
-
-    await this.cacheManager.set('search', '', {
-      ttl: 0,
-    });
-
-    return this.productService.findOne({ Product });
+    // 엘라스틱서치에서 조회 해보기 위해 임시로 주석!!
+    // return this.productService.findAll;
   }
+
   @Query(() => Product)
   fetchProduct(
     @Args('productId') productId: string, //
@@ -50,14 +39,22 @@ export class ProductResolver {
   createProduct(
     @Args('createProductInput') createProductInput: CreateProductInput, //
   ) {
+    // 엘라스틱서치에 등록해보기위해 임시로 주석!!(연습 이후에는 다시 삭제하기!!)
     this.elasticsearchService.create({
       id: 'myid',
-      index: 'myproduct',
+      index: 'myproduct04',
       document: {
+        name: '철수',
+        age: 13,
+        school: '다람쥐초등학교',
         ...createProductInput,
       },
     });
-    // return this.productService.create({ createProductInput }); 엘라스틱서치에서 등록해보기위해 임시로 주석
+
+    //
+    //
+    // 엘라스틱서치에 등록해보기위해 임시로 주석!!
+    // return this.productService.create({ createProductInput });
   }
   @Mutation(() => Product)
   async updateProduct(
