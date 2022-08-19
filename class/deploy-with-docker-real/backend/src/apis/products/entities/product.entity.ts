@@ -13,7 +13,6 @@ import {
   OneToOne,
   JoinTable,
   DeleteDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -59,7 +58,4 @@ export class Product {
   @ManyToMany(() => ProductTag, (productTags) => productTags.products)
   @Field(() => ProductTag)
   productTags: ProductTag[];
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
