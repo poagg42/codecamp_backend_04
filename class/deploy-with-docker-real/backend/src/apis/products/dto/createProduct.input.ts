@@ -23,3 +23,9 @@ export class CreateProductInput {
   @Field(() => [String])
   productTags: string[];
 }
+
+
+// import { ProductSaleslocationInput } from 'src/apis/productsSaleslocations/dto/productsaleslocation.input';
+
+//   @Field(() => ProductSaleslocationInput)
+// productSaleslocation: ProductSaleslocationInput;
