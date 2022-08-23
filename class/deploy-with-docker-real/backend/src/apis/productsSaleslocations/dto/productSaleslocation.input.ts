@@ -2,7 +2,7 @@ import { InputType, OmitType } from '@nestjs/graphql';
 import { ProductSaleslocation } from '../entities/productSaleslocation.entity';
 
 @InputType()
-export class ProductSaleslocationInput extends OmitType(
+export class ProductsSaleslocationInput extends OmitType(
   ProductSaleslocation,
   ['id'],
   InputType,
