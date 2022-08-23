@@ -1,0 +1,117 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ProductImage {
+  _code: String!
+  url: String!
+  product_code: String!
+}
+
+type ProductCategory {
+  _code: String!
+  name: String!
+}
+
+type User {
+  _code: String!
+  password: String!
+  email: String!
+  age: String!
+  name: String!
+  point: Int!
+}
+
+type Payment {
+  id: String!
+  impUid: String!
+  amount: Int!
+  status: PAYMENT_STATUS_ENUM!
+  user: User!
+  createdAt: DateTime!
+}
+
+enum PAYMENT_STATUS_ENUM {
+  PAYMENT
+  CANCEL
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Product {
+  id: String!
+  name: String!
+  description: String!
+  price: Int!
+  isSoldout: Boolean!
+  productCategory: ProductCategory!
+  user: User!
+  payment: Payment!
+  image: ProductImage!
+  productTags: ProductTag!
+}
+
+type ProductTag {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
+type Board {
+  number: Int!
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+type Query {
+  fetchBoards: [Board!]!
+  fetchProducts(search: String!): [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchUser: String!
+  fetchLoginUser(email: String!): User!
+}
+
+type Mutation {
+  login(email: String!, password: String!): String!
+  restoreAccessToken: String!
+  logout: String!
+  createBoard(writer: String, title: String!, contents: String!, createBoardInput: CreateBoardInput!): String!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productID: String!): Boolean!
+  uploadFile(files: [Upload!]!): [String!]!
+  updateUserPwd(email: String!, updateUserPassword: String!): User!
+  createUser(email: String!, password: String!, name: String!, age: Int!): User!
+  deleteLoginUser(email: String!): Boolean!
+  createPayment(impUid: String!, amount: Int!): Payment!
+  cancelPayment(impUid: String!, amount: Int!): Payment!
+}
+
+input CreateBoardInput {
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Int!
+  productCategory: String!
+  productTags: [String!]!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Int
+  productCategory: String
+  productTags: [String!]
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

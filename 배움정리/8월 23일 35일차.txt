@@ -1,0 +1,43 @@
+1. 아니 HTTP 이건 못쓰겠다. >> HTTPS / SSL / TLS
+
+2. 쿠버네티스 이해
+
+3. 
+
+
+
+SSL / TLS 
+
+TLS가 다음 버전인데도 다 표현을 SSL이라고 한다.
+
+https는 http secure의 약자 
+
+가장 핵심 목표는 보안
+
+그러나 이것을 했다고 해서 모든 보안이 해결되는 것은 아니다.
+
+
+
+https를 적용하기 위해 ssl 인증서를 만들어서 LoadBalancer에 
+
+
+
+3-Way-Handshake
+
+프론트엔드  -    백엔드
+
+1 -> SYN "백엔드야 연결해도 돼?"
+
+2 <- SYN + ACK "그래 연결해도 돼"
+
+3. -> ACK "그럼 연결한다"
+
+
+
+3-Way-Handshake 이후에 4-Way-Handshake에는 Fin 추가 
+
+
+SSL https-> 443 
+hhpa -> http
+
+Q박스 안에는 VPC ASf
