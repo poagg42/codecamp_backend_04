@@ -20,7 +20,7 @@ steps:
       - set
       - image
       - deployment/mybackend-nestjs
-      - my-backend-sha256-1=asia.gcr.io/younghoogogo/my-backend:1.7
+      - my-backend-sha256-1=asia.gcr.io/younghoogogo/my-backend:1.8
 
     env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
