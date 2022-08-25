@@ -9,6 +9,8 @@ import { AuthsModule } from './apis/auths/auths.module';
 import { PointsTransactionsModule } from './apis/pointsTransactions/pointsTransactions.module';
 import { PaymentModule } from './apis/payment/payment.module';
 import { FilesModule } from './apis/files/files.module';
+import { AppController } from './app.controller';
+import { BoardsModule } from './apis/boards/boards.module';
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { FilesModule } from './apis/files/files.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    BoardsModule,
     FilesModule,
     PaymentModule,
     PointsTransactionsModule,
@@ -38,5 +41,6 @@ import { FilesModule } from './apis/files/files.module';
       logging: true,
     }),
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
