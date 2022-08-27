@@ -11,8 +11,8 @@ services:
     #   - ./src:/myfolder/src
     # env_file:
     #   - ./.env.prod
-    ports:
-      - 3000:3000
+    # ports:
+    #   - 3000:3000
 #
 # version: '3.7'
 

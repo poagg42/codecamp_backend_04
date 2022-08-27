@@ -1,0 +1,81 @@
+gitflow
+
+블로그에서 정리했듯이
+
+feature / develop / release / hotfixes / master
+
+upstream(안에 보일러플레이트)    1. 게시글 등록 PR / 2. 상품 등록 PR / 3. 결제 PR     이것을 merge or reject
+
+(fork / pull request)
+
+origin
+
+(clone / push)
+
+vscode
+
+
+PR -> merge 이후에 회의를 거쳐
+
+다음 작업을 하기 위해
+
+최신화된 폴더를 다운로드 받는다
+
+git pull upstream develop
+
+
+
+develop -> release -> master
+
+만약 버그가 난다면 hotfix 브랜치를 따서 수정하고 다시 master에 옮겨서 쿠버네티스에 재배포
+
+
+주의사항
+
+1. 1일 1커밋 + 1 PR
+
+2. 두 번 이상 PR시 의존성 없는 PR!!
+
+3. 팀원간 서로 독립적인 기능 만들기
+
+4. 경력자가 공통기능 만들기(신중하게 점검하기)
+
+
+
+
+branch 관련해서
+
+git branch 명령어
+
+git branch << branch 보기
+
+git checkout master << master branch로 바꾸기
+
+git branch -D develop << develop branch 없애기
+
+
+branch를 딸 때 브랜치 색깔이 매우 중요하다.
+
+* 초록색 (브랜치명)을 잘 보고 하자
+
+branch를 딸 때는 항상 develop에서 딴다.
+
+develop에다가 다 merge하기 때문
+
+그리고 develop에서 pull 받는다. develop은 최신
+
+최신에서 branch를 따야 한다.
+
+
+
+이후에
+
+git checkout -b feature-createBoard를 하게 되면 feature-createBoard branch가 생긴다
+
+여기서 branch를 따려면 develop에 가서 만들어야 한다.
+
+git checkout develop을 한 뒤
+
+git checkout -b feature-createProfile << develop에서 새로운 branch 생성
+
+
