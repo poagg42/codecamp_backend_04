@@ -47,3 +47,5 @@ export class Payment {
   @Field(() => Date)
   createdAt: Date;
 }
+
+// ...
